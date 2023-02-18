@@ -23,7 +23,7 @@ def register(request):
             owner_registration_form.full_clean()
             owner_registration_form.save()
 
-            messages.success(request, "Uspješno ste se registrirali.")
+            messages.success(request, "Registration successful.")
             return redirect("login")
         else:
             context = {

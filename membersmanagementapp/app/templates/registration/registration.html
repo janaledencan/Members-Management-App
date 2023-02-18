@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2 class="text-center">Registrirajte se!</h2>
+      <h2 class="text-center">Sign up!</h2>
     </div>
 
     <form method="post" accept-charset="utf-8">
@@ -15,10 +15,10 @@
         {% include 'includes/bootstrap_form.html' with form=owner_registration_form %}
       </div>
 
-      <div class="row">
+      <div class="row mt-4 text-center">
         <div class="col-md-8 mx-auto">
-          <input type="submit" value="Registriraj me" class="btn btn-primary">
-          <a href="{% url 'home_path' %}" class="btn btn-default">Odustani</a>
+          <input type="submit" value="Sign up" class="btn btn-primary me-3">
+          <a href="{% url 'home_path' %}" class="btn btn-default">Cancel</a>
         </div>
       </div>
     </form>
