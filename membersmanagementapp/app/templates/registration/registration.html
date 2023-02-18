@@ -1,0 +1,27 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-center">Registrirajte se!</h2>
+    </div>
+
+    <form method="post" accept-charset="utf-8">
+      {% csrf_token %}
+
+      {% include 'includes/bootstrap_form.html' with form=registration_form %}
+      <div class="form-check text-center my-3">
+        {% include 'includes/bootstrap_form.html' with form=owner_registration_form %}
+      </div>
+
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <input type="submit" value="Registriraj me" class="btn btn-primary">
+          <a href="{% url 'home_path' %}" class="btn btn-default">Odustani</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>        
+{% endblock content %}
