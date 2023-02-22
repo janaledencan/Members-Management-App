@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import UserManager
+from django.contrib.auth.models import User
 from .models import Owner
 
 # Create your views here.
@@ -12,7 +13,7 @@ def home(request):
 
 
 @login_required()
-def profile(request, username):
+def profile(request, user_id):
     user = request.user
     context = {
         "user": user,
