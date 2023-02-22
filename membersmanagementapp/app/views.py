@@ -3,6 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import UserManager
 from django.contrib.auth.models import User
 from .models import Owner
+from .forms import SetPasswordForm
+from .forms import EmailChangeForm
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.urls import reverse
+from django.shortcuts import redirect
+from .forms import SetEmailForm, EmailChangeForm
+from django.template import RequestContext
 
 # Create your views here.
 
@@ -15,55 +23,55 @@ def home(request):
 @login_required()
 def profile(request, user_id):
     user = request.user
+    email_form = EmailChangeForm(user)
+    password_form = SetPasswordForm(user)
     context = {
         "user": user,
+        "email_form": email_form,
+        "password_form": password_form,
     }
     return render(request, "app/profile.html", context)
 
 
 # od starog projekta changerie
+def change_email(request):
+    if request.method == "POST":
+        user = request.user
+        email_form = SetEmailForm(instance=user)
+        if email_form.is_valid():
+            email_form.save()
+            context = {
+                "user": user,
+                "email_form": email_form,
+                "password_form": password_form,
+            }
+            messages.success(request, "Your email has been changed")
+            return HttpResponseRedirect(request, "app/profile.html", context)
+    else:
+        email_form = SetEmailForm(instance=request.user)
+        password_form = SetPasswordForm(request.user)
+        context = {
+            "user": user,
+            "email_form": email_form,
+            "password_form": password_form,
+        }
+    return HttpResponseRedirect(request, "app/profile.html", context)
 
 
-# @login_required()
-# def email_change(request, user_id):
-#     user = request.user
-#     form = EmailChangeForm(user)
-
-#     if request.method == "POST":
-#         form = EmailChangeForm(user, request.POST)
-#         password_form = SetPasswordForm(user)
-
-#         if form.is_valid():
-#             form.save()
-#             context = {
-#                 "user": user,
-#                 "email_form": form,
-#                 "password_form": password_form,
-#             }
-
-#         return HttpResponseRedirect(reverse("app:profile", args=[user_id]))
-#     else:
-#         context = {"user": user, "email_form": form, "password_form": password_form}
-#         return render(request, "app/profile.html", context)
-
-
-# @login_required()
-# def change_password(request, user_id):
-#     user = request.user
-#     email_form = EmailChangeForm(user)
-#     if request.method == "POST":
-#         form = SetPasswordForm(user, request.POST)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, "Your password has been changed")
-#             return redirect("login")
-#         else:
-#             for error in list(form.errors.values()):
-#                 messages.error(request, error)
-#         context = {"user": user, "form": form, "email_form": email_form}
-#         return HttpResponseRedirect(reverse("app:profile", args=[user_id]))
-#     else:
-#         form = SetPasswordForm(user)
-
-#         context = {"user": user, "form": form, "email_form": email_form}
-#         return render(request, "app/profile.html", context)
+def change_password(request):
+    user = request.user
+    if request.method == "POST":
+        form = SetPasswordForm(user, request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your password has been changed")
+            return redirect("login")
+        else:
+            for error in list(form.errors.values()):
+                messages.error(request, error)
+        context = {"user": user, "form": form}
+        return HttpResponseRedirect(request, "app/profile.html", context)
+    else:
+        form = SetPasswordForm(user)
+        context = {"user": user, "form": form}
+        return render(request, "app/profile.html", context)

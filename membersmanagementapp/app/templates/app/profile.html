@@ -2,11 +2,27 @@
 {% block content %}
 
 <h1 class="mt-5 mb-5">Profile</h1>
+<div class="ms-3">
+  <h5 class="mb-3"><b>Username:</b> {{ user.username }}</h5>
+  <h5 class="mb-3"><b>Email address:</b> {{ user.email }}</h5>
+  <h5 class="mb-3"><b>The type of work for which this application will be used:</b> {{user.owner.business}}</h5>
+  <h5 class="mb-3"><b>Company address:</b> {{user.owner.address}}</h5>
+  <h5 class="mb-3"><b>Country:</b> {{user.owner.country}}</h5>
+</div>
 
-<h5 class="mb-3"><b>Username:</b> {{ user.username }}</h5>
-<h5 class="mb-3"><b>Email address:</b> {{ user.email }}</h5>
-<h5 class="mb-3"><b>The type of work for which this application will be used:</b> {{user.owner.business}}</h5>
-<h5 class="mb-3"><b>Company address:</b> {{user.owner.address}}</h5>
-<h5 class="mb-3"><b>Country:</b> {{user.owner.country}}</h5>
+
+  <div class="bg-light py-1 my-3 mt-5">
+      <div class="form-group ms-4 mt-1">
+          {% block email_new %}
+              {% include 'app/email_change.html' with form=email_form %}
+          {% endblock%}
+      </div>
+      <div class="form-group ms-4 mt-5">
+          {% block password_new %}
+              {% include 'app/password_change.html' with form=password_form %}
+          {% endblock%}
+      </div>
+  </div>
+   
 
 {% endblock %}
