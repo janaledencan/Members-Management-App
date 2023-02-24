@@ -3,7 +3,6 @@ from django import forms
 from .models import Owner
 from django.contrib.auth.forms import SetPasswordForm, UserChangeForm
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django import forms
 
