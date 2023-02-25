@@ -24,8 +24,6 @@ class UserRegistrationForm(UserCreationForm):
             raise ValidationError("Email exists")
         return self.cleaned_data
 
-    # make field text croatian
-
 
 class OwnerRegistrationForm(ModelForm):
     class Meta:

@@ -14,15 +14,14 @@
   <div class="bg-light py-1 my-3 mt-5">
       <div class="form-group ms-4 mt-1">
           {% block email_new %}
-              {% include 'app/email_change.html' with form=email_form %}
+              {% include 'accounts/email_change.html' with form=email_form %}
           {% endblock%}
       </div>
       <div class="form-group ms-4 mt-5">
           {% block password_new %}
-              {% include 'app/password_change.html' with form=password_form %}
+              {% include 'accounts/password_change.html' with form=password_form %}
           {% endblock%}
       </div>
   </div>
-   
 
 {% endblock %}

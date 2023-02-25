@@ -22,11 +22,6 @@ class SetEmailForm(UserChangeForm):
 
 
 class EmailChangeForm(forms.Form):
-    """
-    A form that lets a user change set their email while checking for a change in the
-    e-mail.
-    """
-
     error_messages = {
         "email_mismatch": ("The two email addresses fields didn't match."),
         "not_changed": ("The email address is the same as the one already defined."),

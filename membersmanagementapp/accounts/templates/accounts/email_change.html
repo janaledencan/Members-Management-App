@@ -2,7 +2,7 @@
     <div class="content-section">
         <h3>Change Email</h3><hr>
         <p>Please enter your new email.</p>
-        <form action="{% url 'app:new_email' %}" class="mb-2" method="POST">
+        <form action="{% url 'accounts:new_email' user.id %}" class="mb-2" method="POST">
             {% csrf_token %}
             {{ email_form }}
             <button class="btn custom-btn ms-2" type="submit">Reset email</button>
