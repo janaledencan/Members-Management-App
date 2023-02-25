@@ -4,4 +4,6 @@ from django.urls import include
 
 
 app_name = "app"
-urlpatterns = []
+urlpatterns = [
+    path("management/", views.management, name="management"),
+]
