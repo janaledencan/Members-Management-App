@@ -1,0 +1,61 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+
+<form method="POST" class="post-form" action="{% url 'app:update_member' member.id %}">  
+    {% csrf_token %}  
+    <div class="container">  
+    <br>  
+      <div class="form-group row">  
+        <label class="col-sm-1 col-form-label"></label>  
+        <div class="col-sm-4">  
+        <h3>Update Member Details</h3>  
+        </div>  
+      </div>  
+
+      <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Name:</label>  
+        <div class="col-sm-4">  
+            <input type="text" name="name" id="id_name" required maxlength="20" value="{{ member.name }}"/>  
+        </div>  
+      </div>  
+
+      <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Surname::</label>  
+        <div class="col-sm-4">  
+            <input type="text" name="surname" id="id_surname" required maxlength="100" value="{{ member.surname }}" />  
+        </div>  
+      </div>  
+
+      <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Date of birth:</label>  
+        <div class="col-sm-4">  
+            <input type="date" name="date_of_birth" id="id_date_of_birth" required value="{{ member.date_of_birth }}" />  
+        </div>  
+      </div>  
+
+      <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Gender:</label>  
+        <div class="col-sm-4">  
+            <input type="text" name="gender" id="id_gender" required maxlength="1" value="{{ member.gender }}" />  
+        </div>  
+      </div> 
+
+      <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Email:</label>  
+        <div class="col-sm-4">  
+            <input type="email" name="email" id="id_email" required maxlength="254" value="{{ member.email }}" />  
+        </div>  
+      </div>  
+
+
+      <div class="form-group row">  
+        <label class="col-sm-1 col-form-label"></label>  
+        <div class="col-sm-4">  
+        <button type="submit" class="btn btn-success">Update</button>  
+        </div>  
+      </div>  
+    </div>  
+</form> 
+
+{% endblock content %}

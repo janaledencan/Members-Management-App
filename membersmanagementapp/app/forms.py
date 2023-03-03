@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Owner
+from .models import Owner, Member
 from django.contrib.auth.forms import SetPasswordForm, UserChangeForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
@@ -69,3 +69,9 @@ class EmailChangeForm(forms.Form):
         if commit:
             self.user.save()
         return self.user
+
+
+class MemberForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        exclude = ("owner",)

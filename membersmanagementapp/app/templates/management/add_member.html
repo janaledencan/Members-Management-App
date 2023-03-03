@@ -1,0 +1,61 @@
+{% extends 'app/base.html' %}
+{% block content %}
+    
+    <h2>Add new member !</h2>
+
+    <form method="POST" class="post-form" action="{% url 'app:management' %}">  
+        {% csrf_token %}  
+        <div class="container">  
+        <br>  
+          <div class="form-group row">  
+            <label class="col-sm-1 col-form-label"></label>  
+            <div class="col-sm-4">  
+            <h3>Enter New Member</h3>  
+            </div>  
+          </div>  
+
+          <div class="form-group row">  
+            <label class="col-sm-2 col-form-label">Name:</label>  
+            <div class="col-sm-4">  
+            {{ form.name }}  
+            </div>  
+          </div>  
+
+          <div class="form-group row">  
+            <label class="col-sm-2 col-form-label">Surname:</label>  
+            <div class="col-sm-4">  
+            {{ form.surname }}  
+            </div>  
+          </div>  
+
+          <div class="form-group row">  
+            <label class="col-sm-2 col-form-label">Date of birth:</label>  
+            <div class="col-sm-4">  
+            {{ form.date_of_birth }}  
+            </div>  
+          </div>  
+
+          <div class="form-group row">  
+            <label class="col-sm-2 col-form-label">Gender:</label>  
+            <div class="col-sm-4">  
+            {{ form.gender }}  
+            </div>  
+          </div> 
+
+          <div class="form-group row">  
+            <label class="col-sm-2 col-form-label">Email:</label>  
+            <div class="col-sm-4">  
+            {{ form.email }}  
+            </div>  
+          </div>                    
+
+          <div class="form-group row">  
+            <label class="col-sm-1 col-form-label"></label>  
+            <div class="col-sm-4">  
+            <button type="submit" class="btn btn-primary">Submit</button>  
+            </div>  
+          </div>  
+
+        </div>  
+    </form>  
+{% endblock content %}

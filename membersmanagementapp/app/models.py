@@ -42,24 +42,38 @@ class Group(models.Model):
         super().save(*args, **kwargs)
 
 
+class Gender(models.TextChoices):
+    male = "M"
+    female = "F"
+
+
 class Member(models.Model):
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     name = models.CharField(blank=False, max_length=40)
     surname = models.CharField(blank=False, max_length=50)
     date_of_birth = models.DateTimeField()
 
-    class Gender(models.TextChoices):
-        male = "M"
-        female = "F"
+    gender = models.CharField(
+        max_length=1,
+        choices=Gender.choices,
+        default=Gender.male,
+    )
 
     email = models.CharField(max_length=100)
-    date_of_adding = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return f"{self.name} - {self.member_id}"
+        return f"{self.name} - {self.id}"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+    @classmethod
+    def get_all_members(self):
+        return Member.objects.all()
+
+    @classmethod
+    def get_member_by_id(self, id):  # provjeri
+        return Member.objects.get(pk=id)
 
 
 class MembersInGroup(models.Model):
