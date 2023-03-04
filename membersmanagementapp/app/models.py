@@ -51,7 +51,7 @@ class Member(models.Model):
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     name = models.CharField(blank=False, max_length=40)
     surname = models.CharField(blank=False, max_length=50)
-    date_of_birth = models.DateTimeField()
+    date_of_birth = models.DateField()
 
     gender = models.CharField(
         max_length=1,

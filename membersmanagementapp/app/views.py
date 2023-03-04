@@ -22,11 +22,19 @@ def members(request):
     if request.method == "POST":
         form = MemberForm(request.POST)
         if form.is_valid():
-            try:
-                member = form.save()
-                return HttpResponseRedirect(reverse("app:management", args=[member.id]))
-            except:
-                pass
+            member = Member.objects.create(
+                owner=request.user,
+                name=form.cleaned_data.get("name"),
+                surname=form.cleaned_data.get("surname"),
+                date=form.cleaned_data.get("date_of_birth"),
+                gender=form.cleaned_data.get("gender"),
+                email=form.cleaned_data.get("email"),
+            )
+            member.save()
+            return HttpResponseRedirect(reverse("app:management", args=[]))
+        else:
+            context = {"form": form}
+            return render(request, "management/add_member.html", context)
     else:
         form = MemberForm()
     return render(request, "management/add_member.html", {"form": form})
