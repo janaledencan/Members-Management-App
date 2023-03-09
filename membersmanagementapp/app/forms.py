@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Owner, Member
+from .models import Owner, Member, Group
 from django.contrib.auth.forms import SetPasswordForm, UserChangeForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
@@ -75,6 +75,15 @@ class EmailChangeForm(forms.Form):
 class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
+        widgets = {
+            "date_of_birth": DatePickerInput(),
+        }
+        exclude = ("owner",)
+
+
+class GroupForm(forms.ModelForm):
+    class Meta:
+        model = Group
         widgets = {
             "date_of_birth": DatePickerInput(),
         }

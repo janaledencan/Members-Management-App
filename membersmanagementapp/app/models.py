@@ -33,6 +33,7 @@ class Group(models.Model):
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=8, decimal_places=2)
+    description = models.TextField(max_length=300, default=None)
     paid = models.BooleanField(default=False)
 
     def __str__(self):
@@ -40,6 +41,14 @@ class Group(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+    @classmethod
+    def get_all_groups(self):
+        return Group.objects.all()
+
+    @classmethod
+    def get_group_by_id(self, id):  # provjeri
+        return Group.objects.get(pk=id)
 
 
 class Gender(models.TextChoices):
