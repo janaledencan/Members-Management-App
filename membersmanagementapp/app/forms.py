@@ -5,7 +5,6 @@ from django.contrib.auth.forms import SetPasswordForm, UserChangeForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django import forms
-from bootstrap_datepicker_plus.widgets import DatePickerInput
 
 
 class SetPasswordForm(SetPasswordForm):
@@ -75,9 +74,8 @@ class EmailChangeForm(forms.Form):
 class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
-        widgets = {
-            "date_of_birth": DatePickerInput(),
-        }
+        fields = ["name", "surname", "gender", "email", "date_of_birth"]
+
         exclude = ("owner",)
 
 
@@ -85,6 +83,7 @@ class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
         widgets = {
-            "date_of_birth": DatePickerInput(),
+            "date_of_birth",
         }
+
         exclude = ("owner",)

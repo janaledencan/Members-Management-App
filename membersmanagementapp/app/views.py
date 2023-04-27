@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
 from .forms import MemberForm, GroupForm
 from .models import Member, Group
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+
+from django.views.generic.edit import CreateView
 
 
 def home(request):
@@ -19,26 +20,10 @@ def management(request):
     return render(request, "app/management.html", context)
 
 
-def members(request):
-    if request.method == "POST":
-        form = MemberForm(request.POST)
-        if form.is_valid():
-            member = Member.objects.create(
-                owner=request.user,
-                name=form.cleaned_data.get("name"),
-                surname=form.cleaned_data.get("surname"),
-                date=form.cleaned_data.get("date_of_birth"),
-                gender=form.cleaned_data.get("gender"),
-                email=form.cleaned_data.get("email"),
-            )
-            member.save()
-            return HttpResponseRedirect(reverse("app:management", args=[]))
-        else:
-            context = {"form": form}
-            return render(request, "management/add_member.html", context)
-    else:
-        form = MemberForm()
-    return render(request, "management/add_member.html", {"form": form})
+class MemberCreateView(CreateView):
+    model = Member
+    form_class = MemberForm
+    template_name = "management/add_member.html"
 
 
 def edit(request, id):
@@ -64,10 +49,10 @@ def destroy(request, id):
 
 def groups(request):
     if request.method == "POST":
-        form = GroupForm(request.POST)
+        form = GroupForm(request.POST, owner=request.user)
         if form.is_valid():
             group = Group.objects.create(
-                owner=request.user,
+                owner=request.user.owner,
                 name=form.cleaned_data.get("name"),
                 description=form.cleaned_data.get("description"),
                 price=form.cleaned_data.get("price"),

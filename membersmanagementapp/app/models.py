@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.utils import timezone
 from django.dispatch import receiver
+from django.contrib.auth import get_user_model
 
 
 class Owner(models.Model):
@@ -57,7 +58,7 @@ class Gender(models.TextChoices):
 
 
 class Member(models.Model):
-    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)  # get_user_model()
     name = models.CharField(blank=False, max_length=40)
     surname = models.CharField(blank=False, max_length=50)
     date_of_birth = models.DateField()
@@ -68,12 +69,15 @@ class Member(models.Model):
         default=Gender.male,
     )
 
-    email = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100, unique=True)
 
     def __str__(self) -> str:
         return f"{self.name} - {self.id}"
 
     def save(self, *args, **kwargs):
+        print("Saving member...")
+        if not self.owner_id:
+            self.owner = get_user_model().objects.get(pk=kwargs["request"].user.pk)
         super().save(*args, **kwargs)
 
     @classmethod
