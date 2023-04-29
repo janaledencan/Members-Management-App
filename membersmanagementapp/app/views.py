@@ -20,14 +20,24 @@ def management(request):
     return render(request, "app/management.html", context)
 
 
-class MemberCreateView(CreateView):
-    model = Member
-    form_class = MemberForm
-    template_name = "management/add_member.html"
+def members(request):
+    if request.method == "POST":
+        form = MemberForm(request.POST)
+        if form.is_valid():
+            member = Member.objects.create(
+                owner=request.user,
+                name=form.cleaned_data.get("name"),
+                surname=form.cleaned_data.get("surname"),
+                email=form.cleaned_data.get("email"),
+            ).save()
 
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
+            return HttpResponseRedirect(reverse("app:management", args=[]))
+        else:
+            context = {"form": form}
+            return render(request, "management/add_member.html", context)
+    else:
+        form = MemberForm()
+    return render(request, "management/add_member.html", {"form": form})
 
 
 def edit(request, id):
