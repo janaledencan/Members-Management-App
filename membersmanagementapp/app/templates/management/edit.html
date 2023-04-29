@@ -16,21 +16,36 @@
       <div class="form-group row">  
         <label class="col-sm-2 col-form-label">Name:</label>  
         <div class="col-sm-4">  
-            <input type="text" name="name" id="id_name" required maxlength="20" value="{{ member.name }}"/>  
+            <input type="text" name="name" id="id_name" required maxlength="40" value="{{ member.name }}"/>  
         </div>  
       </div>  
 
       <div class="form-group row">  
-        <label class="col-sm-2 col-form-label">Surname::</label>  
+        <label class="col-sm-2 col-form-label">Surname:</label>  
         <div class="col-sm-4">  
-            <input type="text" name="surname" id="id_surname" required maxlength="100" value="{{ member.surname }}" />  
+            <input type="text" name="surname" id="id_surname" required maxlength="50" value="{{ member.surname }}" />  
         </div>  
       </div>  
+
+      <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Date of birth:</label>  
+        <div class="col-sm-4">  
+            <input type="date" name="date_of_birth" id="id_date_of_birth" value="{{ member.date_of_birth }}" />  
+        </div>  
+      </div> 
+
+      <div class="form-group row">  
+        <label for="id_gender" class="col-sm-2 col-form-label">Gender:</label>  
+         <select name="gender" id="id_gender" class="col-sm-2" required>
+            <option value="M">M</option>
+            <option value="F">F</option>
+         </select>
+      </div> 
 
       <div class="form-group row">  
         <label class="col-sm-2 col-form-label">Email:</label>  
         <div class="col-sm-4">  
-            <input type="email" name="email" id="id_email" required maxlength="254" value="{{ member.email }}" />  
+            <input type="email" name="email" id="id_email" required maxlength="100" value="{{ member.email }}" />  
         </div>  
       </div>  
 

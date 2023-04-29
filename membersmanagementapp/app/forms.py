@@ -83,6 +83,11 @@ class MemberForm(forms.ModelForm):
         fields = ["name", "surname", "date_of_birth", "gender", "email"]
         exclude = ("owner",)
 
+    def __init__(self, *args, **kwargs):  # Trenutno nije nužno
+        super().__init__(*args, **kwargs)
+        if self.instance.pk:
+            self.initial["date_of_birth"] = self.instance.date_of_birth
+
 
 class GroupForm(forms.ModelForm):
     class Meta:
