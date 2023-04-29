@@ -2,7 +2,7 @@
 {% block content %}
     
     <div class="row">
-        <div class="col-9">
+        <div class="col-12 col-md-9 mb-5">
             <h2>Members</h2>
 
             <table class="table table-striped table-bordered table-sm mt-4">  
@@ -35,10 +35,9 @@
           <br>  
           <center><a href="{% url 'app:add_member' %}" class="btn btn-primary">Add New Member</a></center>  
         
-
         </div>
 
-        <div class="col-3">
+        <div class="col-12 col-md-3">
             <div class=mb-2>
                 <h2 class="d-inline-flex p-2 me-5">Groups</h2>
                 <a href="{% url 'app:add_group' %}" class="btn btn-primary d-inline-flex p-2">Add Group</a>

@@ -74,7 +74,7 @@ class EmailChangeForm(forms.Form):
 class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
-        fields = ["name", "surname", "gender", "email", "date_of_birth"]
+        fields = ["name", "surname", "email"]
 
         exclude = ("owner",)
 
@@ -82,8 +82,4 @@ class MemberForm(forms.ModelForm):
 class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
-        widgets = {
-            "date_of_birth",
-        }
-
         exclude = ("owner",)

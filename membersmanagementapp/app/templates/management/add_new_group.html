@@ -3,7 +3,7 @@
     
     <h2>Add new group !</h2>
 
-    <form method="POST" class="post-form" action="{% url 'app:management' %}">  
+    <form method="POST" class="post-form" action="{% url 'app:add_group' %}">  
         {% csrf_token %}  
         <div class="container">  
         <br>  
@@ -39,7 +39,7 @@
           <div class="form-group row">  
             <label class="col-sm-1 col-form-label"></label>  
             <div class="col-sm-4">  
-            <button type="submit" value="Save" class="btn btn-primary">Submit</button>  
+            <button type="submit" class="btn btn-primary">Submit</button>  
             </div>  
           </div>  
 

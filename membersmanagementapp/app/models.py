@@ -31,7 +31,7 @@ def save_owner_profile(sender, instance, **kwargs):
 
 
 class Group(models.Model):
-    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     description = models.TextField(max_length=300, default=None)
@@ -41,6 +41,9 @@ class Group(models.Model):
         return f"{self.name} - {self.owner.user.username}"
 
     def save(self, *args, **kwargs):
+        print("Saving member...")  # obrisati print kad proradi
+        if not self.owner_id:
+            self.owner = get_user_model().objects.get(pk=kwargs["request"].user.pk)
         super().save(*args, **kwargs)
 
     @classmethod
@@ -58,16 +61,10 @@ class Gender(models.TextChoices):
 
 
 class Member(models.Model):
-    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)  # get_user_model()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)  # get_user_model()
     name = models.CharField(blank=False, max_length=40)
     surname = models.CharField(blank=False, max_length=50)
-    date_of_birth = models.DateField()
-
-    gender = models.CharField(
-        max_length=1,
-        choices=Gender.choices,
-        default=Gender.male,
-    )
+    # obrisan datum i gender
 
     email = models.EmailField(max_length=100, unique=True)
 
@@ -75,9 +72,9 @@ class Member(models.Model):
         return f"{self.name} - {self.id}"
 
     def save(self, *args, **kwargs):
-        print("Saving member...")
+        print("Saving member...")  # obrisati print kad proradi
         if not self.owner_id:
-            self.owner = get_user_model().objects.get(pk=kwargs["request"].user.pk)
+            self.owner = get_user_model().objects.get(kwargs["request"].user)
         super().save(*args, **kwargs)
 
     @classmethod

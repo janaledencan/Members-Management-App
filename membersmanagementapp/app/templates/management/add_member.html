@@ -3,7 +3,7 @@
     
     <h2>Add new member !</h2>
 
-    <form method="POST" class="post-form" action="{% url 'app:management' %}">  
+    <form method="POST" class="post-form" action="{% url 'app:add_member' %}">  
         {% csrf_token %}  
         <div class="container">  
        <br> 
@@ -28,33 +28,8 @@
             </div>  
           </div>  
 
-          <div class="form-group row">  
-              <section class="container">
-                <form class="row">
-                  <label for="date" class="col-1 col-form-label">Date of birth:</label>
-                  <div class="col-5">
-                    <div class="input-group date" id="datepicker">
-                      <input type="text" class="form-control" id="date"/>
-                      <span class="input-group-append">
-                        <span class="input-group-text bg-light d-block">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                          </svg>
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                </form>
-              </section> 
-          </div>  
-
-          <div class="form-group row">  
-            <label class="col-sm-2 col-form-label">Gender:</label>  
-            <div class="col-sm-4">  
-            {{ form.gender }}  
-            </div>  
-          </div> 
-
+          <!--obrisan datum i gender-->
+          
           <div class="form-group row">  
             <label class="col-sm-2 col-form-label">Email:</label>  
             <div class="col-sm-4">  

@@ -25,6 +25,10 @@ class MemberCreateView(CreateView):
     form_class = MemberForm
     template_name = "management/add_member.html"
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
 
 def edit(request, id):
     member = Member.get_member_by_id(id)
@@ -49,15 +53,15 @@ def destroy(request, id):
 
 def groups(request):
     if request.method == "POST":
-        form = GroupForm(request.POST, owner=request.user)
+        form = GroupForm(request.POST)
         if form.is_valid():
             group = Group.objects.create(
-                owner=request.user.owner,
+                owner=request.user,
                 name=form.cleaned_data.get("name"),
                 description=form.cleaned_data.get("description"),
                 price=form.cleaned_data.get("price"),
-            )
-            group.save()
+            ).save()
+
             return HttpResponseRedirect(reverse("app:management", args=[]))
         else:
             context = {"form": form}
