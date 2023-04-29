@@ -28,12 +28,15 @@ def members(request):
                 owner=request.user,
                 name=form.cleaned_data.get("name"),
                 surname=form.cleaned_data.get("surname"),
+                date_of_birth=form.cleaned_data.get("date_of_birth"),
+                gender=form.cleaned_data.get("gender"),
                 email=form.cleaned_data.get("email"),
             ).save()
 
             return HttpResponseRedirect(reverse("app:management", args=[]))
         else:
             context = {"form": form}
+            print(form.errors)
             return render(request, "management/add_member.html", context)
     else:
         form = MemberForm()

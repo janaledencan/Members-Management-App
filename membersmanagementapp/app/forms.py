@@ -71,11 +71,16 @@ class EmailChangeForm(forms.Form):
         return self.user
 
 
+class DateInput(forms.DateInput):
+    input_type = "date"
+
+
 class MemberForm(forms.ModelForm):
+    date_of_birth = forms.DateField(widget=DateInput)
+
     class Meta:
         model = Member
-        fields = ["name", "surname", "email"]
-
+        fields = ["name", "surname", "date_of_birth", "gender", "email"]
         exclude = ("owner",)
 
 
