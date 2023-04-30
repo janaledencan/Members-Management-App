@@ -6,18 +6,31 @@
     <form method="POST" class="post-form" action="{% url 'app:add_member' %}">  
         {% csrf_token %}  
         <div class="container">  
-       <br> 
-          <div class="form-group row">  
+          {% for hidden_field in form.hidden_fields %}
+              {{ hidden_field }}
+          {% endfor %}
+
+          {% if form.non_field_errors %}
+              <div class="alert alert-danger" role="alert">
+              {% for error in form.non_field_errors %}
+                  {{ error }}
+              {% endfor %}
+              </div>
+          {% endif %}
+
+          <br> 
+          <div class="form-group row mb-3">  
             <label class="col-sm-1 col-form-label"></label>  
             <div class="col-sm-4">  
-            <h3>Enter New Member</h3>  
+            <h3>Enter New Member</h3> 
             </div>  
           </div>  
 
           <div class="form-group row">  
             <label class="col-sm-2 col-form-label">Name:</label>  
             <div class="col-sm-4">  
-            {{ form.name }}  
+            {{ form.name }}
+            {{ form.name.errors }}  
             </div>  
           </div>  
 
@@ -25,13 +38,15 @@
             <label class="col-sm-2 col-form-label">Surname:</label>  
             <div class="col-sm-4">  
             {{ form.surname }}  
+            {{ form.surname.errors }} 
             </div>  
           </div>  
           
           <div class="form-group row">  
             <label class="col-sm-2 col-form-label">Date of birth:</label>  
             <div class="col-sm-4">  
-              {{form.date_of_birth}}  
+              {{ form.date_of_birth }}  
+              {{ form.date_of_birth.errors }} 
             </div>  
           </div> 
 
@@ -39,17 +54,19 @@
             <label class="col-sm-2 col-form-label">Gender:</label>  
             <div class="col-sm-4">  
             {{ form.gender }}  
+            {{ form.gender.errors }} 
             </div>  
           </div> 
           
           <div class="form-group row">  
             <label class="col-sm-2 col-form-label">Email:</label>  
             <div class="col-sm-4">  
-            {{ form.email }}  
+            {{ form.email }} 
+            {{ form.email.errors }}  
             </div>  
           </div>                    
 
-          <div class="form-group row">  
+          <div class="form-group row mt-5">  
             <label class="col-sm-1 col-form-label"></label>  
             <div class="col-sm-4">  
             <button type="submit" value="Save" class="btn btn-primary">Submit</button>  

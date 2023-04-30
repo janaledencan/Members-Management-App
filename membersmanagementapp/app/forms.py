@@ -5,6 +5,8 @@ from django.contrib.auth.forms import SetPasswordForm, UserChangeForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django import forms
+from django.core.exceptions import ValidationError
+import datetime
 
 
 class SetPasswordForm(SetPasswordForm):
@@ -88,8 +90,60 @@ class MemberForm(forms.ModelForm):
         if self.instance.pk:
             self.initial["date_of_birth"] = self.instance.date_of_birth
 
+    def clean(self):
+        errors = []
+
+        if "name" in self.cleaned_data:
+            if self.cleaned_data["name"] == "":
+                raise ValidationError("You have to enter a name!")
+
+        if "surname" in self.cleaned_data:
+            if self.cleaned_data["surname"] == "":
+                raise ValidationError("You have to enter surname!")
+
+        if "date_of_birth" in self.cleaned_data:
+            if self.cleaned_data["date_of_birth"] > datetime.date.today():
+                errors.append(
+                    ValidationError("The date of birth cannot be in the future!")
+                )
+        else:
+            errors.append(ValidationError("Date of birth field is empty"))
+
+        if "email" in self.cleaned_data:
+            if Member.objects.filter(email=self.cleaned_data["email"]):
+                errors.append(ValidationError("The email address already exists."))
+        else:
+            errors.append(ValidationError("The email address field is empty."))
+
+        if errors:
+            raise ValidationError(errors)
+        return self.cleaned_data
+
 
 class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
         exclude = ("owner",)
+
+    def clean(self):
+        errors = []
+
+        if "name" in self.cleaned_data:
+            if Group.objects.filter(name=self.cleaned_data["name"]):
+                errors.append(ValidationError("There is a group with that name."))
+        else:
+            errors.append(ValidationError("You have to enter a group name!"))
+
+        if "price" in self.cleaned_data:
+            if self.cleaned_data["price"] < 0:
+                errors.append(ValidationError("The price cannot be less than 0!"))
+        else:
+            errors.append(ValidationError("Price field empty"))
+
+        if "description" in self.cleaned_data:
+            if self.cleaned_data["description"] == "":
+                raise ValidationError("You have to enter a description!")
+
+        if errors:
+            raise ValidationError(errors)
+        return self.cleaned_data
