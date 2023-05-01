@@ -55,7 +55,7 @@ def update(request, id):
         form.save()
         return HttpResponseRedirect(reverse("app:management", args=[]))
 
-    return render(request, "management/edit.html", {"member": member})
+    return render(request, "management/edit.html", {"member": member, "form": form})
 
 
 def destroy(request, id):
@@ -96,7 +96,7 @@ def update_group(request, id):
         form.save()
         return HttpResponseRedirect(reverse("app:management", args=[]))
 
-    return render(request, "management/edit_group.html", {"group": group})
+    return render(request, "management/edit_group.html", {"group": group, "form": form})
 
 
 def destroy_group(request, id):

@@ -5,6 +5,17 @@
 <form method="POST" class="post-form" action="{% url 'app:update_member' member.id %}">  
     {% csrf_token %}  
     <div class="container">  
+        {% for hidden_field in form.hidden_fields %}
+          {{ hidden_field }}
+        {% endfor %}
+
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger" role="alert">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
     <br>  
       <div class="form-group row">  
         <label class="col-sm-1 col-form-label"></label>  
