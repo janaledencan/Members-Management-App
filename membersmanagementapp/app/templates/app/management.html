@@ -23,6 +23,7 @@
                   <td>{{ member.date_of_birth }}</td>  
                   <td>{{ member.gender }}</td> 
                   <td>{{ member.email }}</td> 
+                  <td>{{ member.date_joined }}</td> 
                   <td>  
                       <a href="{% url 'app:edit_member' member.id %}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>  
                       <a href="{% url 'app:delete_member' member.id %}">Delete</a>  

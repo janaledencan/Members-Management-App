@@ -82,8 +82,14 @@ class MemberForm(forms.ModelForm):
 
     class Meta:
         model = Member
-        fields = ["name", "surname", "date_of_birth", "gender", "email"]
-        exclude = ("owner",)
+        fields = [
+            "name",
+            "surname",
+            "date_of_birth",
+            "gender",
+            "email",
+        ]
+        exclude = ("owner", "date_joined")
 
     def __init__(self, *args, **kwargs):  # Trenutno nije nužno
         super().__init__(*args, **kwargs)

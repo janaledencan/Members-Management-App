@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 import datetime
+from datetime import date
 
 
 class Owner(models.Model):
@@ -73,6 +74,8 @@ class Member(models.Model):
     )
 
     email = models.EmailField(max_length=100, unique=True)
+    date_joined = models.DateField(default=datetime.date.today)
+    # prikaz u oblacicu  - bilo je datetime.date.today
 
     def __str__(self) -> str:
         return f"{self.name} - {self.id}"
