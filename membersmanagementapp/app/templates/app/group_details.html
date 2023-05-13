@@ -5,16 +5,37 @@
         <div class="col-12 col-md-9 mb-5">
             <h2>{{ group.name }}</h2>
 
+            <div><b>Description:</b> {{ group.description }}</div>
+            <div><b>Price:</b> {{ group.price }}</div>
+
             <h2 class="text-center mt-5 mb-4">Members in group</h2>
                 {% for member in members_in_group %}  
                     {% include 'includes/member_card.html' with member=member.member %}
                 {% endfor %}  
 
             <h2 class="text-center mt-5 mb-4">Other members</h2>
-                {% for member in members_not_in_group %}    
-                    {% include 'includes/member_card.html' with member=member %} 
-                {% endfor %} 
-              
+            <table class="table table-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Surname</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Add to group</th>
+                      </tr>
+                </thead>
+                <tbody>
+                    {% for member in members_not_in_group %}
+                    <tr>    
+                        <td>{{ member.name }}</td>  
+                        <td>{{ member.surname }}</td>  
+                        <td>{{ member.email }}</td>  
+                        <td>  
+                            <i class="fa-solid fa-plus ms-5" style="color: #263159;"></i>  
+                        </td>  
+                    </tr>  
+                    {% endfor %}
+                </tbody>
+                </table>
           <br>  
           <br>  
        

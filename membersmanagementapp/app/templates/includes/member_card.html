@@ -1,12 +1,24 @@
+{% load static %}
 <div class="card my-4 shadow-sm p-3 mb-5  rounded">
     <div class="card-body m-2">
+
       <div class="row">
         <h4 class="card-title">{{ member.name }} {{ member.surname }}</h4>
       </div>
-      <div class="card-subtitle mb-2 text-muted">Date of birth: {{ member.date_of_birth }}</div>
-      <div class="card-text mb-2">{{ member.gender }}</div>
-      <div class="card-text mb-2">{{ member.email }}</div>
-      <div class="card-text mb-2">{{ member.date_joined }}</div>
+
+      <div class="row">
+      <div class="col-8">
+        <div class="card-text mb-2">Date of birth: {{ member.date_of_birth }}</div>
+        <div class="card-text mb-2">Gender: {{ member.gender }}</div>
+        <div class="card-text mb-2">E-mail: {{ member.email }}</div>
+        <div class="card-text mb-2">Date of joining: {{ member.date_joined }}</div>
+      </div>
+
+      <div class="col-4">
+        <a class="mail-icon" href="{% url 'home_path' %}"><img class="mail" src="{% static 'app/images/email.png' %}" alt="Email"></a>
+        <input type="checkbox" class="ms-4"> Paid</input>
+      </div>
+      </div>
     </div>
   </div>
   
