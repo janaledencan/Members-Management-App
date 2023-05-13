@@ -14,4 +14,6 @@ urlpatterns = [
     path("management/edit-group/<int:id>", views.edit_group, name="edit_group"),
     path("management/update-group/<int:id>", views.update_group, name="update_group"),
     path("management/delete-group/<int:id>", views.destroy_group, name="delete_group"),
+    # za grupe
+    path("management/group/<int:group_id>", views.group_details, name="group_details"),
 ]

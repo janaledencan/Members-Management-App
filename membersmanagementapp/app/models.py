@@ -40,7 +40,7 @@ class Group(models.Model):
     paid = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.name} - {self.owner.user.username}"
+        return f"{self.name} - {self.owner.username}"
 
     def save(self, *args, **kwargs):
         if not self.owner_id:

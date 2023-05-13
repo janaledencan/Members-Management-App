@@ -1,0 +1,25 @@
+{% extends 'app/base.html' %}
+{% block content %}
+    
+    <div class="row">
+        <div class="col-12 col-md-9 mb-5">
+            <h2>{{ group.name }}</h2>
+
+            <h2 class="text-center mt-5 mb-4">Members in group</h2>
+                {% for member in members_in_group %}  
+                    {% include 'includes/member_card.html' with member=member.member %}
+                {% endfor %}  
+
+            <h2 class="text-center mt-5 mb-4">Other members</h2>
+                {% for member in members_not_in_group %}    
+                    {% include 'includes/member_card.html' with member=member %} 
+                {% endfor %} 
+              
+          <br>  
+          <br>  
+       
+        </div>
+
+
+    </div>
+{% endblock content %}

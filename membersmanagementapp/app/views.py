@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from .forms import MemberForm, GroupForm
-from .models import Member, Group
+from .models import Member, Group, MembersInGroup
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from django.views.generic.edit import CreateView
+from django.db.models import Q
 
 
 def home(request):
@@ -103,3 +104,23 @@ def destroy_group(request, id):
     group = Group.get_group_by_id(id)
     group.delete()
     return HttpResponseRedirect(reverse("app:management", args=[]))
+
+
+# @login_required()
+def group_details(request, group_id):
+    user = request.user
+    group = Group.objects.get(pk=group_id)
+
+    members_in_group = MembersInGroup.objects.all().filter(Q(group=group))
+    other_members = Member.objects.all()
+
+    members_not_in_group = other_members.exclude(
+        id__in=members_in_group.values("member__id")
+    )
+    context = {
+        "user": user,
+        "group": group,
+        "members_in_group": members_in_group,
+        "members_not_in_group": members_not_in_group,
+    }
+    return render(request, "app/group_details.html", context)
