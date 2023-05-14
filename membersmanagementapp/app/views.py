@@ -124,3 +124,7 @@ def group_details(request, group_id):
         "members_not_in_group": members_not_in_group,
     }
     return render(request, "app/group_details.html", context)
+
+
+def view_member(request, id):
+    return HttpResponseRedirect(reverse("app:management"))
