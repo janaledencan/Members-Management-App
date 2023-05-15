@@ -3,37 +3,51 @@
     <div class="card-body m-2">
 
       <div class="row">
-        <h4 class="card-title">{{ member.name }} {{ member.surname }}</h4>
+        <h4 class="card-title">{{ member.member.name }} {{ member.member.surname }}</h4>
       </div>
 
       <div class="row">
       <div class="col-8">
-        <div class="card-text mb-2">Date of birth: {{ member.date_of_birth }}</div>
-        <div class="card-text mb-2">Gender: {{ member.gender }}</div>
-        <div class="card-text mb-2">E-mail: {{ member.email }}</div>
-        <div class="card-text mb-2">Date of joining: {{ member.date_joined }}</div>
+        <div class="card-text mb-2">Date of birth: {{ member.member.date_of_birth }}</div>
+        <div class="card-text mb-2">Gender: {{ member.member.gender }}</div>
+        <div class="card-text mb-2">E-mail: {{ member.member.email }}</div>
+        <div class="card-text mb-2">Date of joining: {{ member.member.date_joined }}</div>
       </div>
 
       <div class="col-4">
-        <a class="mail-icon" href="{% url 'home_path' %}"><img class="mail" src="{% static 'app/images/email.png' %}" alt="Email"></a>
-        <input type="checkbox" class="ms-4"> Paid</input>
-        <a class="minus-icon ms-5" href="{% url 'app:view_member' member.id %}" data-bs-toggle="modal" data-bs-target="#removeFromGroupModal{{member.id}}"><img class="minus" src="{% static 'app/images/minus.png' %}" alt="Minus"></a>
+        <div class="row mb-3">
+          <a class="mail-icon col-4" href="{% url 'home_path' %}"><img class="mail" src="{% static 'app/images/email.png' %}" alt="Email"></a>
+          
+          {% if member.is_paid %}
+            <div class="form-check col-8">
+              <input class="form-check-input" type="checkbox" checked="checked" value={{member.id}} name="boxes">
+              <span>Paid</span>
+            </div>
+          {% else %}
+            <div class="form-check col-8">
+              <input class="form-check-input" type="checkbox" value={{member.id}} name="boxes">
+              <span>Paid</span>
+            </div>
+          {% endif %}
+        </div>
+
+        <a class="minus-icon ms-5" href="{% url 'app:view_member' member.member.id %}" data-bs-toggle="modal" data-bs-target="#removeFromGroupModal{{member.member.id}}"><img class="minus" src="{% static 'app/images/minus.png' %}" alt="Minus"></a>
         <span>Remove</span>
 
-        <div class="modal" id="removeFromGroupModal{{member.id}}" tabindex="-1" aria-labelledby="GroupModalLabel" aria-hidden="true">
+        <div class="modal" id="removeFromGroupModal{{member.member.id}}" tabindex="-1" aria-labelledby="GroupModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">{{ member.name }} {{ member.surname }}</h5>
+                <h5 class="modal-title">{{ member.member.name }} {{ member.member.surname }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <span aria-hidden="true"></span>
               </div>
               <div class="modal-body">
-                <p>I want to remove {{ member.name }} {{ member.surname }} from {{ group.name }} group.</p> 
+                <p>I want to remove {{ member.member.name }} {{ member.member.surname }} from {{ member.group.name }} group.</p> 
               </div>
               <div class="modal-footer">
                   <a class="btn btn-primary pull-right" 
-                  href="{% url 'app:remove_member_from_group' group.id member.id %}">
+                  href="{% url 'app:remove_member_from_group' member.group.id member.member.id %}">
                   Remove from group
                   </a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -46,4 +60,5 @@
       </div>
     </div>
   </div>
+
   

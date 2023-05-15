@@ -97,6 +97,7 @@ class Member(models.Model):
 class MembersInGroup(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    is_paid = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return f"{self.member.name} - {self.group.name}"

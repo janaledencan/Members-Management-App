@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.views.generic.edit import CreateView
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 def home(request):
@@ -139,6 +140,18 @@ def group_details(request, group_id):
         "members_in_group": members_in_group,
         "members_not_in_group": members_not_in_group,
     }
+
+    if request.method == "POST":
+        id_members = request.POST.getlist("boxes")
+
+        members_in_group.update(is_paid=False)
+
+        for x in id_members:
+            members_in_group.filter(pk=int(x)).update(is_paid=True)
+
+        messages.success(request, ("Update paid"))
+        return HttpResponseRedirect(reverse("app:group_details", args=[group.id]))
+
     return render(request, "app/group_details.html", context)
 
 
