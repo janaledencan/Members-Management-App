@@ -27,4 +27,9 @@ urlpatterns = [
         name="remove_member_from_group",
     ),
     path("management/group/<int:group_id>", views.group_details, name="group_details"),
+    path(
+        "management/group/<int:group_id>/admin_approval",
+        views.admin_approval,
+        name="admin_approval",
+    ),
 ]

@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from django.views.generic.edit import CreateView
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -13,6 +14,7 @@ def home(request):
     return render(request, "app/home.html", context)
 
 
+@login_required()
 def management(request):
     user = request.user
     members = Member.get_all_members()
@@ -27,6 +29,7 @@ def management(request):
     return render(request, "app/management.html", context)
 
 
+@login_required()
 def members(request):
     if request.method == "POST":
         form = MemberForm(request.POST)
@@ -50,11 +53,13 @@ def members(request):
     return render(request, "management/add_member.html", {"form": form})
 
 
+@login_required()
 def edit(request, id):
     member = Member.get_member_by_id(id)
     return render(request, "management/edit.html", {"member": member})
 
 
+@login_required()
 def update(request, id):
     member = Member.get_member_by_id(id)
     form = MemberForm(request.POST, instance=member)
@@ -65,12 +70,14 @@ def update(request, id):
     return render(request, "management/edit.html", {"member": member, "form": form})
 
 
+@login_required()
 def destroy(request, id):
     member = Member.get_member_by_id(id)
     member.delete()
     return HttpResponseRedirect(reverse("app:management", args=[]))
 
 
+@login_required()
 def groups(request):
     if request.method == "POST":
         form = GroupForm(request.POST)
@@ -91,11 +98,13 @@ def groups(request):
     return render(request, "management/add_new_group.html", {"form": form})
 
 
+@login_required()
 def edit_group(request, id):
     group = Group.get_group_by_id(id)
     return render(request, "management/edit_group.html", {"group": group})
 
 
+@login_required()
 def update_group(request, id):
     group = Group.get_group_by_id(id)
     form = GroupForm(request.POST, instance=group)
@@ -106,13 +115,14 @@ def update_group(request, id):
     return render(request, "management/edit_group.html", {"group": group, "form": form})
 
 
+@login_required()
 def destroy_group(request, id):
     group = Group.get_group_by_id(id)
     group.delete()
     return HttpResponseRedirect(reverse("app:management", args=[]))
 
 
-# @login_required()
+@login_required()
 def group_details(request, group_id):
     user = request.user
     group = Group.objects.get(pk=group_id)
@@ -132,10 +142,12 @@ def group_details(request, group_id):
     return render(request, "app/group_details.html", context)
 
 
+@login_required()
 def view_member(request, id):
     return HttpResponseRedirect(reverse("app:management"))
 
 
+@login_required()
 def add_member_to_group(request, group_id, member_id):
     member = Member.objects.get(pk=member_id)
     group = Group.objects.get(pk=group_id)
@@ -148,6 +160,7 @@ def add_member_to_group(request, group_id, member_id):
     return HttpResponseRedirect(reverse("app:group_details", args=[group.id]))
 
 
+@login_required()
 def remove_member_from_group(request, group_id, member_id):
     member = Member.objects.get(pk=member_id)
     group = Group.objects.get(pk=group_id)
@@ -155,3 +168,8 @@ def remove_member_from_group(request, group_id, member_id):
     MembersInGroup.objects.filter(Q(member=member), Q(group=group)).delete()
 
     return HttpResponseRedirect(reverse("app:group_details", args=[group.id]))
+
+
+@login_required()
+def admin_approval(request, group_id, member_id):
+    return render(request, "app:group_details.html")
