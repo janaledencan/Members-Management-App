@@ -103,3 +103,7 @@ class MembersInGroup(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+    @classmethod
+    def get_all_members_in_group(self):
+        return MembersInGroup.objects.all()

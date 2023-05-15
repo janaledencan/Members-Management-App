@@ -16,7 +16,6 @@
                   <th>Name</th>  
                   <th>Surname</th>  
                   <th>Date of birth</th>  
-                  <th>Gender</th>  <!--tu mi ni ne treba vec kad se klikne na membera pa su tamo sva polja-->
                   <th>Email</th>  
                   <th>Info</th> 
               </tr>  
@@ -27,7 +26,6 @@
                   <td>{{ member.name }}</td>  
                   <td>{{ member.surname }}</td>  
                   <td>{{ member.date_of_birth }}</td>  
-                  <td>{{ member.gender }}</td> 
                   <td>{{ member.email }}</td>  
                   <td>
                     <button type="button" class="btn" href="{% url 'app:view_member' member.id %}" data-bs-toggle="modal" data-bs-target="#myModal{{member.id}}">
@@ -45,12 +43,16 @@
                               <p>Date of birth: {{ member.date_of_birth }}</p>
                               <p>Gender: {{ member.gender }}</p> 
                               <p>Email: {{ member.email }}</p>
-                              <p>Date of joining: {{ member.date_joined }} 
-                              <p>Groups:</p>
+                              <p>Date of joining: {{ member.date_joined }}</p> 
+                              <p>Groups:</p> 
+                              {% for member_group in members_in_group %}
+                                {% if member == member_group.member %}
+                                  <p class="ms-4">&bull; &#32;{{ member_group.group.name }}</p>
+                                {% endif %}
+                              {% endfor %}
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary">Save changes</button>
                             </div>
                           </div>
                         </div>

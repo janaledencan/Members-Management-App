@@ -17,7 +17,13 @@ def management(request):
     user = request.user
     members = Member.get_all_members()
     groups = Group.get_all_groups
-    context = {"user": user, "members": members, "groups": groups}
+    members_in_group = MembersInGroup.get_all_members_in_group()
+    context = {
+        "user": user,
+        "members": members,
+        "groups": groups,
+        "members_in_group": members_in_group,
+    }
     return render(request, "app/management.html", context)
 
 
