@@ -21,6 +21,14 @@ def management(request):
     members = Member.get_all_members()
     groups = Group.get_all_groups
     members_in_group = MembersInGroup.get_all_members_in_group()
+
+    name_query = request.GET.get("name")
+    surname_query = request.GET.get("surname")
+    email_query = request.GET.get("email")
+
+    if name_query != "" and name_query is not None:
+        members = members.filter(Q(name__icontains=name_query)).distinct()
+
     context = {
         "user": user,
         "members": members,
