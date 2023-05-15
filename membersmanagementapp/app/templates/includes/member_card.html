@@ -17,8 +17,31 @@
       <div class="col-4">
         <a class="mail-icon" href="{% url 'home_path' %}"><img class="mail" src="{% static 'app/images/email.png' %}" alt="Email"></a>
         <input type="checkbox" class="ms-4"> Paid</input>
-        <a class="minus-icon ms-5" href="{% url 'home_path' %}"><img class="minus" src="{% static 'app/images/minus.png' %}" alt="Minus"></a>
+        <a class="minus-icon ms-5" href="{% url 'app:view_member' member.id %}" data-bs-toggle="modal" data-bs-target="#removeFromGroupModal{{member.id}}"><img class="minus" src="{% static 'app/images/minus.png' %}" alt="Minus"></a>
         <span>Remove</span>
+
+        <div class="modal" id="removeFromGroupModal{{member.id}}" tabindex="-1" aria-labelledby="GroupModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">{{ member.name }} {{ member.surname }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <span aria-hidden="true"></span>
+              </div>
+              <div class="modal-body">
+                <p>I want to remove {{ member.name }} {{ member.surname }} from {{ group.name }} group.</p> 
+              </div>
+              <div class="modal-footer">
+                  <a class="btn btn-primary pull-right" 
+                  href="{% url 'app:remove_member_from_group' group.id member.id %}">
+                  Remove from group
+                  </a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
       </div>
     </div>

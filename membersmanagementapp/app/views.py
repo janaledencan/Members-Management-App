@@ -134,3 +134,24 @@ def group_details(request, group_id):
 
 def view_member(request, id):
     return HttpResponseRedirect(reverse("app:management"))
+
+
+def add_member_to_group(request, group_id, member_id):
+    member = Member.objects.get(pk=member_id)
+    group = Group.objects.get(pk=group_id)
+
+    MembersInGroup.objects.create(
+        member=member,
+        group=group,
+    ).save()
+
+    return HttpResponseRedirect(reverse("app:group_details", args=[group.id]))
+
+
+def remove_member_from_group(request, group_id, member_id):
+    member = Member.objects.get(pk=member_id)
+    group = Group.objects.get(pk=group_id)
+
+    MembersInGroup.objects.filter(Q(member=member), Q(group=group)).delete()
+
+    return HttpResponseRedirect(reverse("app:group_details", args=[group.id]))
