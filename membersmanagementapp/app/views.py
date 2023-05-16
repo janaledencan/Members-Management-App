@@ -46,18 +46,12 @@ def management(request):
     groups = Group.get_all_groups
     members_in_group = MembersInGroup.get_all_members_in_group()
 
-    # name_query = request.GET.get("name")
-    # surname_query = request.GET.get("surname")
-    # email_query = request.GET.get("email")
-
-    # if name_query != "" and name_query is not None:
-    #     members = members.filter(Q(name__icontains=name_query)).distinct()
-
     form = SearchForm(request.GET)
 
     if form.is_valid():
         search_query = form.cleaned_data.get("search_query")
         filter_choice = form.cleaned_data.get("filter_choice")
+        sort_choice = form.cleaned_data.get("sort_choice")
 
         if search_query:
             if filter_choice == "name":
@@ -66,6 +60,16 @@ def management(request):
                 members = members.filter(surname__icontains=search_query)
             elif filter_choice == "email":
                 members = members.filter(email__icontains=search_query)
+            elif filter_choice == "gender":
+                members = members.filter(gender__icontains=search_query)
+            elif filter_choice == "date_joined":
+                members = members.filter(date_joined__icontains=search_query)
+
+        if sort_choice:
+            if sort_choice == "asc":
+                members = members.order_by(filter_choice)
+            elif sort_choice == "desc":
+                members = members.order_by("-" + filter_choice)
 
     context = {
         "user": user,

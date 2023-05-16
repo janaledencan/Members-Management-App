@@ -102,10 +102,18 @@ class MemberForm(forms.ModelForm):
         if "name" in self.cleaned_data:
             if self.cleaned_data["name"] == "":
                 raise ValidationError("You have to enter a name! ")
+            elif not self.cleaned_data["name"][0].isupper():
+                raise ValidationError(
+                    "You must enter the name with the first letter capitalized!"
+                )
 
         if "surname" in self.cleaned_data:
             if self.cleaned_data["surname"] == "":
                 raise ValidationError("You have to enter surname! ")
+            elif not self.cleaned_data["surname"][0].isupper():
+                raise ValidationError(
+                    "You must enter the surname with the first letter capitalized!"
+                )
 
         if "date_of_birth" in self.cleaned_data:
             if self.cleaned_data["date_of_birth"] > datetime.date.today():
@@ -158,7 +166,22 @@ class GroupForm(forms.ModelForm):
 class SearchForm(forms.Form):
     search_query = forms.CharField(required=False)
     filter_choice = forms.ChoiceField(
-        choices=[("name", "Name"), ("surname", "Surname"), ("email", "Email")],
+        choices=[
+            ("name", "Name"),
+            ("surname", "Surname"),
+            ("email", "Email"),
+            ("gender", "Gender (M/F)"),
+            ("date_joined", "Date of joining"),
+        ],
+        widget=forms.RadioSelect,
+        required=False,
+    )
+
+    sort_choice = forms.ChoiceField(
+        choices=[
+            ("asc", "Ascending"),
+            ("desc", "Descending"),
+        ],
         widget=forms.RadioSelect,
         required=False,
     )
