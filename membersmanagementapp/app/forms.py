@@ -153,3 +153,12 @@ class GroupForm(forms.ModelForm):
         if errors:
             raise ValidationError(errors)
         return self.cleaned_data
+
+
+class SearchForm(forms.Form):
+    search_query = forms.CharField(required=False)
+    filter_choice = forms.ChoiceField(
+        choices=[("name", "Name"), ("surname", "Surname"), ("email", "Email")],
+        widget=forms.RadioSelect,
+        required=False,
+    )

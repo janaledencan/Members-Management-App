@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import MemberForm, GroupForm
+from .forms import MemberForm, GroupForm, SearchForm
 from .models import Member, Group, MembersInGroup
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -15,6 +15,30 @@ def home(request):
     return render(request, "app/home.html", context)
 
 
+def search(request):
+    form = SearchForm(request.GET)
+    queryset = Member.objects.all()
+
+    if form.is_valid():
+        search_query = form.cleaned_data.get("search_query")
+        filter_choice = form.cleaned_data.get("filter_choice")
+
+        if search_query:
+            if filter_choice == "name":
+                queryset = queryset.filter(name__icontains=search_query)
+            elif filter_choice == "surname":
+                queryset = queryset.filter(surname__icontains=search_query)
+            elif filter_choice == "email":
+                queryset = queryset.filter(email__icontains=search_query)
+
+    context = {
+        "form": form,
+        "queryset": queryset,
+    }
+
+    return render(request, "search.html", context)
+
+
 @login_required()
 def management(request):
     user = request.user
@@ -22,18 +46,33 @@ def management(request):
     groups = Group.get_all_groups
     members_in_group = MembersInGroup.get_all_members_in_group()
 
-    name_query = request.GET.get("name")
-    surname_query = request.GET.get("surname")
-    email_query = request.GET.get("email")
+    # name_query = request.GET.get("name")
+    # surname_query = request.GET.get("surname")
+    # email_query = request.GET.get("email")
 
-    if name_query != "" and name_query is not None:
-        members = members.filter(Q(name__icontains=name_query)).distinct()
+    # if name_query != "" and name_query is not None:
+    #     members = members.filter(Q(name__icontains=name_query)).distinct()
+
+    form = SearchForm(request.GET)
+
+    if form.is_valid():
+        search_query = form.cleaned_data.get("search_query")
+        filter_choice = form.cleaned_data.get("filter_choice")
+
+        if search_query:
+            if filter_choice == "name":
+                members = members.filter(name__icontains=search_query)
+            elif filter_choice == "surname":
+                members = members.filter(surname__icontains=search_query)
+            elif filter_choice == "email":
+                members = members.filter(email__icontains=search_query)
 
     context = {
         "user": user,
         "members": members,
         "groups": groups,
         "members_in_group": members_in_group,
+        "form": form,
     }
     return render(request, "app/management.html", context)
 
