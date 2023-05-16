@@ -9,6 +9,10 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+import xlwt
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+
 
 def home(request):
     context = {}
@@ -237,3 +241,38 @@ def remove_member_from_group(request, group_id, member_id):
 @login_required()
 def admin_approval(request, group_id, member_id):
     return render(request, "app:group_details.html")
+
+
+@login_required()
+def export_members_xls(request):
+    response = HttpResponse(content_type="application/ms-excel")
+    response["Content-Disposition"] = 'attachment; filename="members.xls"'
+
+    wb = xlwt.Workbook(encoding="utf-8")
+    ws = wb.add_sheet("Members Data")  # this will make a sheet named Members Data
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ["Name", "Surname", "Gender", "Email Address", "Owner"]
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)  # at 0 row 0 column
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+
+    rows = Member.objects.all().values_list(
+        "name", "surname", "gender", "email", "owner"
+    )
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    wb.save(response)
+
+    return response

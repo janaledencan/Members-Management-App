@@ -32,4 +32,5 @@ urlpatterns = [
         views.admin_approval,
         name="admin_approval",
     ),
+    path("export/excel", views.export_members_xls, name="export_excel"),
 ]
