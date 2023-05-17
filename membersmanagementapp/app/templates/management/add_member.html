@@ -5,7 +5,8 @@
 
     <form method="POST" class="post-form" action="{% url 'app:add_member' %}">  
         {% csrf_token %}  
-        <div class="container">  
+
+        <div class="container bg-light my-4 px-5 py-4 mb-5">  
           {% for hidden_field in form.hidden_fields %}
               {{ hidden_field }}
           {% endfor %}
@@ -19,14 +20,11 @@
           {% endif %}
 
           <br> 
-          <div class="form-group row mb-3">  
-            <label class="col-sm-1 col-form-label"></label>  
-            <div class="col-sm-4">  
+          <div class="form-group row mb-3">     
             <h3>Enter New Member</h3> 
-            </div>  
           </div>  
 
-          <div class="form-group row">  
+          <div class="form-group row mt-4">  
             <label class="col-sm-2 col-form-label">Name:</label>  
             <div class="col-sm-4">  
             {{ form.name }}
@@ -34,7 +32,7 @@
             </div>  
           </div>  
 
-          <div class="form-group row">  
+          <div class="form-group row mt-4">  
             <label class="col-sm-2 col-form-label">Surname:</label>  
             <div class="col-sm-4">  
             {{ form.surname }}  
@@ -42,7 +40,7 @@
             </div>  
           </div>  
           
-          <div class="form-group row">  
+          <div class="form-group row mt-4">  
             <label class="col-sm-2 col-form-label">Date of birth:</label>  
             <div class="col-sm-4">  
               {{ form.date_of_birth }}  
@@ -50,7 +48,7 @@
             </div>  
           </div> 
 
-          <div class="form-group row">  
+          <div class="form-group row mt-4">  
             <label class="col-sm-2 col-form-label">Gender:</label>  
             <div class="col-sm-4">  
             {{ form.gender }}  
@@ -58,7 +56,7 @@
             </div>  
           </div> 
           
-          <div class="form-group row">  
+          <div class="form-group row mt-4">  
             <label class="col-sm-2 col-form-label">Email:</label>  
             <div class="col-sm-4">  
             {{ form.email }} 

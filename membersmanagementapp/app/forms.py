@@ -89,6 +89,14 @@ class MemberForm(forms.ModelForm):
             "gender",
             "email",
         ]
+
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+            "surname": forms.TextInput(attrs={"class": "form-control"}),
+            "date_of_birth": forms.DateInput(attrs={"class": "form-control w-75"}),
+            "gender": forms.Select(attrs={"class": "form-control"}),
+            "email": forms.EmailInput(attrs={"class": "form-control"}),
+        }
         exclude = ("owner", "date_joined")
 
     def __init__(self, *args, **kwargs):  # Trenutno nije nužno
@@ -137,6 +145,12 @@ class MemberForm(forms.ModelForm):
 class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
+
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+            "description": forms.TextInput(attrs={"class": "form-control"}),
+            "price": forms.TextInput(attrs={"class": "form-control "}),
+        }
         exclude = ("owner",)
 
     def clean(self):
