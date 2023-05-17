@@ -5,6 +5,7 @@ body {
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
     font-size: 1.2vw;
+    /*nadi bolji nacin jer radi problem*/
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     color: #263159;

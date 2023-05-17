@@ -15,23 +15,22 @@
       </div>
 
       <div class="col-4">
-        <div class="row mb-3">
-          <a class="mail-icon col-4" href="{% url 'home_path' %}"><img class="mail" src="{% static 'app/images/email.png' %}" alt="Email"></a>
-          
+        <div class="row mb-3 ms-5">
+                
           {% if member.is_paid %}
-            <div class="form-check col-8">
+            <div class="form-check col-8 ms-5">
               <input class="form-check-input" type="checkbox" checked="checked" value={{member.id}} name="boxes">
               <span>Paid</span>
             </div>
           {% else %}
-            <div class="form-check col-8">
+            <div class="form-check col-8 ms-5">
               <input class="form-check-input" type="checkbox" value={{member.id}} name="boxes">
               <span>Paid</span>
             </div>
           {% endif %}
         </div>
 
-        <div class="ms-5">
+        <div class="ms-5 mt-4">
           <a class="minus-icon ms-5" href="{% url 'app:view_member' member.member.id %}" data-bs-toggle="modal" data-bs-target="#removeFromGroupModal{{member.member.id}}"><img class="minus" src="{% static 'app/images/minus.png' %}" alt="Minus"></a>
           <span>Remove</span>
         </div>
