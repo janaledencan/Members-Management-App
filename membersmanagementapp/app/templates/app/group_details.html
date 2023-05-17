@@ -30,9 +30,9 @@
                 <tbody>
                     {% for member in members_not_in_group %}
                     <tr>    
-                        <td>{{ member.name }}</td>  
-                        <td>{{ member.surname }}</td>  
-                        <td>{{ member.email }}</td>  
+                        <td class="pt-2">{{ member.name }}</td>  
+                        <td class="pt-2">{{ member.surname }}</td>  
+                        <td class="pt-2">{{ member.email }}</td>  
                         <td>  
                             <button type="button" class="btn" href="{% url 'app:view_member' member.id %}" data-bs-toggle="modal" data-bs-target="#addToGroupModal{{member.id}}">
                                 <i class="fa-solid fa-plus ms-5" style="color: #263159;"></i>
@@ -58,7 +58,6 @@
                                   </div>
                                 </div>
                               </div>
-
                         </td>  
                     </tr>  
                     {% endfor %}
@@ -66,9 +65,7 @@
                 </table>
           <br>  
           <br>  
-       
         </div>
-
 
     </div>
 {% endblock content %}

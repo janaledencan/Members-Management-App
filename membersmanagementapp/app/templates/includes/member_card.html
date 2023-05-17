@@ -31,8 +31,10 @@
           {% endif %}
         </div>
 
-        <a class="minus-icon ms-5" href="{% url 'app:view_member' member.member.id %}" data-bs-toggle="modal" data-bs-target="#removeFromGroupModal{{member.member.id}}"><img class="minus" src="{% static 'app/images/minus.png' %}" alt="Minus"></a>
-        <span>Remove</span>
+        <div class="ms-5">
+          <a class="minus-icon ms-5" href="{% url 'app:view_member' member.member.id %}" data-bs-toggle="modal" data-bs-target="#removeFromGroupModal{{member.member.id}}"><img class="minus" src="{% static 'app/images/minus.png' %}" alt="Minus"></a>
+          <span>Remove</span>
+        </div>
 
         <div class="modal" id="removeFromGroupModal{{member.member.id}}" tabindex="-1" aria-labelledby="GroupModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
