@@ -15,7 +15,7 @@
                 {% for member in members_in_group %} 
                     {% include 'includes/member_card.html' with member=member %}
                 {% endfor %}  
-            <button class="btn btn-secondary" type="submit">Approve paid</button>
+            <button class="btn custom-btn" type="submit">Approve paid</button>
 
             <h2 class="text-center mt-5 mb-4">Other members</h2>
             <table class="table table-sm">
@@ -49,10 +49,10 @@
                                       <p>I want to add {{ member.name }} {{ member.surname }} to {{ group.name }} group.</p> 
                                     </div>
                                     <div class="modal-footer">
-                                        <a class="btn btn-primary pull-right" 
-                                        href="{% url 'app:add_member_to_group' group.id member.id %}">
+                                        <button class="btn custom-btn pull-right" 
+                                          onclick="location.href='{% url 'app:add_member_to_group' group.id member.id %}'">
                                         Add to group
-                                        </a>
+                                    </button>
                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     </div>
                                   </div>

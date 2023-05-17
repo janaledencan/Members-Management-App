@@ -1,3 +1,7 @@
+body {
+    background-color: #FDFFFE;
+}
+
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
     font-size: 1.2vw;
@@ -23,4 +27,35 @@ p {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     color: #251749;
+}
+
+a:link {
+    text-decoration: none;
+    color: #495579;
+}
+
+a:visited {
+    text-decoration: none;
+    color: purple;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: blue;
+}
+
+.add-btn a:hover {
+    color: #495579;
+}
+
+.add-btn {
+    color: #fffffe;
+    border: 3px solid #495579;
+    border-radius: 5px;
+    box-shadow: 0 0 2px 1px #9ea0a7;
+}
+
+
+.col-form-label {
+    font-weight: bold;
 }

@@ -46,10 +46,10 @@
                 <p>I want to remove {{ member.member.name }} {{ member.member.surname }} from {{ member.group.name }} group.</p> 
               </div>
               <div class="modal-footer">
-                  <a class="btn btn-primary pull-right" 
-                  href="{% url 'app:remove_member_from_group' member.group.id member.member.id %}">
+                  <button class="btn custom-btn pull-right" 
+                  onclick="location.href='{% url 'app:remove_member_from_group' member.group.id member.member.id %}'">
                   Remove from group
-                  </a>
+                  </button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               </div>
             </div>
