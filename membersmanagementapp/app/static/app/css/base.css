@@ -4,8 +4,9 @@ body {
 
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
-    font-size: 1.2vw;
+    /*font-size: 1.2vw;*/
     /*nadi bolji nacin jer radi problem*/
+    font-size: 1.25em;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     color: #263159;
@@ -58,4 +59,13 @@ a:hover {
 
 .col-form-label {
     font-weight: bold;
+}
+
+.dots {
+    background-image: linear-gradient(to right, black 10%, transparent 10%);
+    background-repeat: repeat-x;
+    background-position: top;
+    background-size: 10px 3px;
+    height: 3px;
+    width: 100%;
 }
