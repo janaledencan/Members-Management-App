@@ -13,9 +13,9 @@
                 </div>
                 <div class="col-6 d-flex align-items-center justify-content-center">
                     <div class="content">
-                        <p class="">Manage your business easier and faster!</p>
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-outline-secondary " href="#">Register</a>
+                        <h4 class="">Manage your business easier and faster!</h4>
+                        <div class="d-flex justify-content-center mt-4">
+                            <a class="btn btn-outline-secondary " href="{% url 'accounts:registration' %}">Register</a>
                         </div>
                     </div>
                 </div>
@@ -23,35 +23,35 @@
         </div>
     </div>
     <div class=" dots ms-1"></div>
-    <div class="shadow-lg p-3 mt-5 mb-5  rounded d-none d-md-block"><img src="{% static 'app/images/app.png' %}" alt="App Image"/></div>
+    <div class="shadow-lg p-3 mt-5 mb-5  rounded d-none d-md-block"><img class="img-fluid" src="{% static 'app/images/app.png' %}" alt="App Image"/></div>
     
     <h2 class="mt-5">Some features</h2>
     <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-        <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 text-center text-white overflow-hidden">
+        <div class="custom-bg mr-md-3 pt-3 px-3 pt-md-5 text-center overflow-hidden">
             <div class="my-3 py-3">
-                <h2 class="display-5 text-white">Easy to use</h2>
-                <p class="">Realized with a simple design</p>
+                <h2 class="display-5 text-white">Easy to Use</h2>
+                <p class="text-white mt-3">Realized by simple design and <br> data filtering.</p>
             </div>
             <div class="bg-light box-shadow mx-auto style="width:80%; height: 300px; border-radius:21px 21px 0 0;""></div>
         </div>
         <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 text-center overflow-hidden">
             <div class="my-3 p-3">
-                <h2 class="display-5">Add and delete</h2>
-                <p class="lead">Allows adding and deleting members and groups.</p>
+                <h2 class="display-5">Add and Delete</h2>
+                <p class="mt-3">Allows adding and deleting members and groups.</p>
             </div>
             <div class="bg-dark box-shadow mx-auto style="width:80%; height: 300px; border-radius:21px 21px 0 0;""></div>
         </div> 
-        <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 text-center text-white overflow-hidden">
+        <div class="custom-bg mr-md-3 pt-3 px-3 pt-md-5 text-center text-white overflow-hidden">
             <div class="my-3 py-3">
-                <h2 class="display-5 text-white">Easy to use</h2>
-                <p class="">Realized with a simple design</p>
+                <h2 class="display-5 text-white">View Details</h2>
+                <p class="text-white mt-3">For each group and member.</p>
             </div>
             <div class="bg-light box-shadow mx-auto style="width:80%; height: 300px; border-radius:21px 21px 0 0;""></div>
         </div>
         <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 text-center overflow-hidden">
             <div class="my-3 p-3">
-                <h2 class="display-5">Add and delete</h2>
-                <p class="lead">allows adding and deleting members and groups</p>
+                <h2 class="display-5">Member Export</h2>
+                <p class="mt-3">Export all your members to an excel table.</p>
             </div>
             <div class="bg-dark box-shadow mx-auto style="width:80%; height: 300px; border-radius:21px 21px 0 0;""></div>
         </div> 

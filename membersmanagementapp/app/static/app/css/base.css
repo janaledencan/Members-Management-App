@@ -69,3 +69,7 @@ a:hover {
     height: 3px;
     width: 100%;
 }
+
+.custom-bg {
+    background-color: #495579;
+}
