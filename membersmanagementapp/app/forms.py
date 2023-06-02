@@ -99,7 +99,7 @@ class MemberForm(forms.ModelForm):
         }
         exclude = ("owner", "date_joined")
 
-    def __init__(self, *args, **kwargs):  # Trenutno nije nužno
+    def __init__(self, *args, **kwargs):  
         super().__init__(*args, **kwargs)
         if self.instance.pk:
             self.initial["date_of_birth"] = self.instance.date_of_birth

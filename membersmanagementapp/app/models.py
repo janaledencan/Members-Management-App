@@ -52,7 +52,7 @@ class Group(models.Model):
         return Group.objects.all()
 
     @classmethod
-    def get_group_by_id(self, id):  # provjeri
+    def get_group_by_id(self, id):
         return Group.objects.get(pk=id)
 
 
