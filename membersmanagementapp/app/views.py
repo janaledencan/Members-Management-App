@@ -46,8 +46,9 @@ def search(request):
 @login_required()
 def management(request):
     user = request.user
-    members = Member.get_all_members()
-    groups = Group.get_all_groups
+    members = Member.get_owner_members(user)
+    # Member.objects.filter(owner=user)
+    groups = Group.get_owner_groups(user)
     members_in_group = MembersInGroup.get_all_members_in_group()
 
     form = SearchForm(request.GET)
@@ -184,7 +185,7 @@ def group_details(request, group_id):
     group = Group.objects.get(pk=group_id)
 
     members_in_group = MembersInGroup.objects.all().filter(Q(group=group))
-    other_members = Member.objects.all()
+    other_members = Member.get_owner_members(user)
 
     members_not_in_group = other_members.exclude(
         id__in=members_in_group.values("member__id")

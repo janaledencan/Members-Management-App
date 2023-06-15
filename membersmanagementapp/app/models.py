@@ -48,8 +48,8 @@ class Group(models.Model):
         super().save(*args, **kwargs)
 
     @classmethod
-    def get_all_groups(self):
-        return Group.objects.all()
+    def get_owner_groups(self, user):
+        return Group.objects.filter(owner=user)
 
     @classmethod
     def get_group_by_id(self, id):
@@ -86,11 +86,11 @@ class Member(models.Model):
         super().save(*args, **kwargs)
 
     @classmethod
-    def get_all_members(self):
-        return Member.objects.all()
+    def get_owner_members(self, user):
+        return Member.objects.filter(owner=user)
 
     @classmethod
-    def get_member_by_id(self, id):  # provjeri
+    def get_member_by_id(self, id):
         return Member.objects.get(pk=id)
 
 
