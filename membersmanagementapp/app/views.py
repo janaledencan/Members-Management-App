@@ -266,7 +266,7 @@ def export_members_xls(request):
     # Sheet body, remaining rows
     font_style = xlwt.XFStyle()
 
-    rows = Member.objects.all().values_list(
+    rows = Member.get_owner_members(request.user).values_list(
         "name", "surname", "gender", "email", "owner"
     )
     for row in rows:
