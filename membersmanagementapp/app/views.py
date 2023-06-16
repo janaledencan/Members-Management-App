@@ -12,6 +12,7 @@ from django.contrib import messages
 import xlwt
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 
 def home(request):
@@ -139,12 +140,21 @@ def groups(request):
     if request.method == "POST":
         form = GroupForm(request.POST)
         if form.is_valid():
-            group = Group.objects.create(
-                owner=request.user,
-                name=form.cleaned_data.get("name"),
-                description=form.cleaned_data.get("description"),
-                price=form.cleaned_data.get("price"),
-            ).save()
+            existing_groups = Group.objects.filter(
+                Q(name=form.cleaned_data.get("name")) & Q(owner=request.user)
+            )
+            if existing_groups.exists():
+                form.errors["__all__"] = form.errors.get("__all__", []) + [
+                    "Group exists."
+                ]
+
+            else:
+                group = Group.objects.create(
+                    owner=request.user,
+                    name=form.cleaned_data.get("name"),
+                    description=form.cleaned_data.get("description"),
+                    price=form.cleaned_data.get("price"),
+                ).save()
 
             return HttpResponseRedirect(reverse("app:management", args=[]))
         else:
@@ -164,7 +174,7 @@ def edit_group(request, id):
 @login_required()
 def update_group(request, id):
     group = Group.get_group_by_id(id)
-    form = GroupForm(request.POST, instance=group)
+    form = GroupForm(request.POST, instance=group, request=request)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse("app:management", args=[]))
@@ -184,8 +194,13 @@ def group_details(request, group_id):
     user = request.user
     group = Group.objects.get(pk=group_id)
 
-    members_in_group = MembersInGroup.objects.all().filter(Q(group=group))
+    members_in_group = MembersInGroup.objects.all().filter(
+        Q(group=group) & Q(group__owner=user)
+    )
     other_members = Member.get_owner_members(user)
+    # Member.objects.all()
+
+    # cini se ok prikaz popisa ljudi koji su od tog usera, ali ne može se dodati u grupu
 
     members_not_in_group = other_members.exclude(
         id__in=members_in_group.values("member__id")

@@ -6,6 +6,8 @@ from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 import datetime
 from datetime import date
+from django.core.exceptions import ValidationError
+from django.db.models import Q
 
 
 class Owner(models.Model):
@@ -73,7 +75,7 @@ class Member(models.Model):
         default=Gender.male,
     )
 
-    email = models.EmailField(max_length=100, unique=True)
+    email = models.EmailField(max_length=100)
     date_joined = models.DateField(default=datetime.date.today)
     # prikaz u oblacicu  - bilo je datetime.date.today
 

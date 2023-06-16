@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django import forms
 from django.core.exceptions import ValidationError
 import datetime
+from django.db.models import Q
 
 
 class SetPasswordForm(SetPasswordForm):
@@ -99,7 +100,7 @@ class MemberForm(forms.ModelForm):
         }
         exclude = ("owner", "date_joined")
 
-    def __init__(self, *args, **kwargs):  
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance.pk:
             self.initial["date_of_birth"] = self.instance.date_of_birth
@@ -131,12 +132,6 @@ class MemberForm(forms.ModelForm):
         else:
             errors.append(ValidationError("Date of birth field is empty. "))
 
-        if "email" in self.cleaned_data:
-            if Member.objects.filter(email=self.cleaned_data["email"]):
-                errors.append(ValidationError("The email address already exists. "))
-        else:
-            errors.append(ValidationError("The email address field is empty. "))
-
         if errors:
             raise ValidationError(errors)
         return self.cleaned_data
@@ -155,12 +150,6 @@ class GroupForm(forms.ModelForm):
 
     def clean(self):
         errors = []
-
-        if "name" in self.cleaned_data:
-            if Group.objects.filter(name=self.cleaned_data["name"]):
-                errors.append(ValidationError("There is a group with that name. "))
-        else:
-            errors.append(ValidationError("You have to enter a group name! "))
 
         if "price" in self.cleaned_data:
             if self.cleaned_data["price"] < 0:
