@@ -48,7 +48,6 @@ def search(request):
 def management(request):
     user = request.user
     members = Member.get_owner_members(user)
-    # Member.objects.filter(owner=user)
     groups = Group.get_owner_groups(user)
     members_in_group = MembersInGroup.get_all_members_in_group()
 
@@ -198,9 +197,6 @@ def group_details(request, group_id):
         Q(group=group) & Q(group__owner=user)
     )
     other_members = Member.get_owner_members(user)
-    # Member.objects.all()
-
-    # cini se ok prikaz popisa ljudi koji su od tog usera, ali ne može se dodati u grupu
 
     members_not_in_group = other_members.exclude(
         id__in=members_in_group.values("member__id")

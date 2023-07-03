@@ -64,11 +64,11 @@ class Gender(models.TextChoices):
 
 
 class Member(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)  # get_user_model()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(blank=False, max_length=40)
     surname = models.CharField(blank=False, max_length=50)
-    date_of_birth = models.DateField(default=datetime.date.today)  # ovo
-    # formatted_str = date_obj.strftime('%Y-%m-%d')
+    date_of_birth = models.DateField(default=datetime.date.today)
+
     gender = models.CharField(
         max_length=1,
         choices=Gender.choices,
@@ -77,7 +77,6 @@ class Member(models.Model):
 
     email = models.EmailField(max_length=100)
     date_joined = models.DateField(default=datetime.date.today)
-    # prikaz u oblacicu  - bilo je datetime.date.today
 
     def __str__(self) -> str:
         return f"{self.name} - {self.id}"

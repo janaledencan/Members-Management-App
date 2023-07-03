@@ -11,7 +11,11 @@
                   <img class="search-icon " src="{% static 'app/images/search.png' %}" alt="Search"></a>Search
                 </button>
 
-                <span class="col-1"><a class="excel-icon" href="{% url 'app:export_excel' %}"><img class="excel mt-2" src="{% static 'app/images/excel.png' %}" alt="Excel"></a></span>
+                <span class="col-1">
+                  <a class="excel-icon" href="{% url 'app:export_excel' %}">
+                    <img class="excel mt-2" src="{% static 'app/images/excel.png' %}" alt="Excel">
+                  </a>
+                </span>
             </div>
             
             <div class="modal" id="searchModal{{member.id}}" tabindex="-1" aria-labelledby="myModalLabel1" aria-hidden="true">
